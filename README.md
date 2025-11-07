@@ -51,4 +51,10 @@ Este é um projeto acadêmico para desenvolver um sistema de e-commerce completo
 
 ## 👥 Membros da Equipe
 
+* **Francisco das Chagas** - [@chyquin03](https://github.com/chyquin03)
+* **Pedro Hanza** - [@bittelo](https://github.com/bittelo)
 * **Rhuan Santos** - [@dev-rhuan](https://github.com/dev-rhuan)
+* **Thiago Beijamim** - [@beijamim43](https://github.com/beijamim43)
+* **Yasmin Rocha** - [@yasminrochasantos](https://github.com/yasminrochasantos)
+* **Vinicius Resende** -
+* **Vinicius Leal** - 

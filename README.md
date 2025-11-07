@@ -22,8 +22,8 @@ Este é um projeto acadêmico para desenvolver um sistema de e-commerce completo
 
 1.  **Clone o Repositório:**
     ```bash
-    git clone [https://github.com/](https://github.com/)[NOME-DA-ORGANIZACAO]/[NOME-DO-REPO].git
-    cd [NOME-DO-REPO]
+    git clone [https://github.com/](https://github.com/)[M-F-Pefumaria]/[PerfumariaMF].git
+    cd [PerfumariaMF]
     ```
 
 2.  **Instale as Dependências:**
@@ -39,7 +39,6 @@ Este é um projeto acadêmico para desenvolver um sistema de e-commerce completo
         DB_USER=root
         DB_PASS=sua_senha
         DB_NAME=db_perfumaria
-        PORT=3000
         ```
 
 4.  **Rode a Aplicação:**

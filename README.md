@@ -22,7 +22,7 @@ Este é um projeto acadêmico para desenvolver um sistema de e-commerce completo
 
 1.  **Clone o Repositório:**
     ```bash
-    git clone [https://github.com/](https://github.com/)[M-F-Pefumaria]/[PerfumariaMF].git
+    git clone https://github.com/M-F-Pefumaria/PerfumariaMF.git
     cd [PerfumariaMF]
     ```
 

@@ -2,9 +2,11 @@ const db = require('../config/database');
 
 const Usuario = {
 
-    // criar usuario
+    // cadastrar usuario
 
-
+    create: async (nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash) => {
+        await db.query("INSERT INTO usuario (nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash, tipo_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, 'CLIENTE')", [nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash])
+    },
 
 
     // buscar usuario por email

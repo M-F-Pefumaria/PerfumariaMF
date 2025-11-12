@@ -26,6 +26,8 @@ require('./src/config/database')
 const usuarioRoutes = require('./src/routes/usuarioRoutes');
 app.use('/usuario', usuarioRoutes);
 
+const produtoRoutes = require('./src/routes/produtoRoutes');
+app.use('/produto', produtoRoutes);
 
 app.get('/', (req, res) => {
   res.send('Servidor Rodando!')

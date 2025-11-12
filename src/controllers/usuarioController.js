@@ -35,28 +35,24 @@ const usuarioController = {
 
     cadastro: async (req, res) => {
         try {
-            const { nome, sobrenome, cpf, data_nascimento, celular, email, senha } = req.body;
+            const { nome, sobrenome, cpf, data_nascimento, celular, email, senha, tipo_usuario } = req.body;
 
             // verifica se todos os campos foram preenchidos
-
             if (!email || !senha || !nome || !sobrenome || !cpf || !data_nascimento || !celular) {
                 return res.status(400).json({ message: 'Preencha todos os campos obrigatórios' })
             }
 
             // verifica tamanho da senha
-
             if (req.body.senha.length < 4) {
                 return res.status(400).json({ message: 'Senha muito curta' })
             }
 
-            // verificar correspondencia das senhas
-
+            // verifica correspondencia das senhas
             if (req.body.senha != req.body.senha_confirmacao) {
                 return res.status(400).json({ message: 'As senhas são diferentes, tente novamente' })
             }
 
             // verifica se email ja existe no banco
-
             const usuario = await Usuario.findByEmail(email);
             if (usuario) {
                 return res.status(400).json({ message: 'Email já cadastrado' })
@@ -68,7 +64,11 @@ const usuarioController = {
                 const salt = await bcrypt.genSalt(10);
                 const senha_hash = await bcrypt.hash(senha, salt);
 
-                await Usuario.create(nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash);
+                // atribui automaticamente o tipo cliete para o cliente
+                const tipo = tipo_usuario || 'CLIENTE';
+
+                // Manda para o model usuario para inserir usuario no banco
+                await Usuario.create(nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash, tipo);
 
                 res.status(201).json({ message: 'Usuario cadastrado com sucesso' });
             }

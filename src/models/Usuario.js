@@ -4,8 +4,8 @@ const Usuario = {
 
     // cadastrar usuario
 
-    create: async (nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash) => {
-        await db.query("INSERT INTO usuario (nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash, tipo_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, 'CLIENTE')", [nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash])
+    create: async (nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash, tipo_usuario) => {
+        await db.query("INSERT INTO usuario (nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash, tipo_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", [nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash, tipo_usuario])
     },
 
 

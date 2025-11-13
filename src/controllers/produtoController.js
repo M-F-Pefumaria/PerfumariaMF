@@ -1,37 +1,61 @@
 const { parse } = require('dotenv');
 const Produto = require('../models/Produto');
 
-const produtoController = {
+class ProdutoController {
 
-    cadastrarProduto: async (req, res) => {
-        try {
-            const novoProduto = await Produto.create(req.body);
-            res.status(201).json(novoProduto);
-        } catch (error) {
-            res.status(500).json({ message: 'Erro ao cadastrar produto', erro: error.message })
-            console.log(error);
-        }
-    },
-
-    atualizarProduto: async (req, res) => {
-        const {id} = req.params;
-
-        try {
-
-            const produtoAtualizado = await Produto.update(id, req.body);
-           
-            if (produtoAtualizado === 0) {
-                res.status(404).json({ message: 'Produto não encontrado' })
-            }
-                
-            res.status(200).json({ id: id, ...req.body });
-        } catch (error) {
-            res.status(500).json({ message: 'Erro ao atualizar produto', erro: error.message })
-            console.log(error);
-        }
-
+    // Listagem de Produtos
+    async index(req, res) {
+        const produtos = await Produto.index();
+        return res.status(200).json(produtos);
     }
 
+    // Mostra um Produto
+    async show(req, res) {
+        const id = parseInt(req.params.id);
+        const produto = await Produto.findById(id);
+
+        if(!produto) {
+            res.status(404).json({ message: 'Produto não encontrado' });
+        }
+
+        return res.status(200).json(produto);
+    }
+
+    // Cria um novo Produto
+    async create(req, res) {
+        const { nome, marca, codigo, imagem_url, descricao, preco, qtd_estoque, categoria, genero, nota_olfativa } = req.body;
+        const novoProduto = await Produto.create(req.body);
+
+        return res.status(201).json(novoProduto);
+    }
+
+    // Atualiza um Produto
+    async update(req, res) {
+        const id = parseInt(req.params.id);
+        const produtoAtualizado = await Produto.update(id, req.body);
+
+        if(!produtoAtualizado) {
+            return res.status(404).json({ message: 'Produto não encontrado' });
+        }
+
+        return res.status(201).json({menssage: 'Produto atualizado com sucesso'});
+    }
+
+    // Exclui um Produto
+    async destroy(req, res) {
+        const id = parseInt(req.params.id);
+
+        const produtoExiste = await Produto.findById(id);
+
+        if(!produtoExiste) {
+            return res.status(404).json({ message: 'Produto não encontrado' });
+        }
+
+        await Produto.destroy(id);
+
+        return res.status(200).json({message: 'Produto excluido com sucesso'});
+
+    }
 }
 
-module.exports = produtoController;
+module.exports = new ProdutoController();

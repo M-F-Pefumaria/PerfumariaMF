@@ -3,7 +3,10 @@ const router = express.Router();
 const produtoController = require('../controllers/produtoController')
 const { isAuth, isAdmin } = require('../middlewares/auth');
 
-router.post('/cadastro', isAuth, isAdmin, produtoController.cadastrarProduto);
+router.get('/', isAuth, isAdmin, produtoController.index);
+router.get('/:id', isAuth, isAdmin, produtoController.show);
+router.post('/cadastro', isAuth, isAdmin, produtoController.create);
+router.put('/:id', isAuth, isAdmin, produtoController.update);
+router.delete('/:id', isAuth, isAdmin, produtoController.destroy);
 
-router.put('/:id', isAuth, isAdmin, produtoController.atualizarProduto);
 module.exports = router;

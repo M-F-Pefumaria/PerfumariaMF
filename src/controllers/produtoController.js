@@ -1,4 +1,3 @@
-const { parse } = require('dotenv');
 const Produto = require('../models/Produto');
 
 class ProdutoController {
@@ -38,20 +37,17 @@ class ProdutoController {
             return res.status(404).json({ message: 'Produto não encontrado' });
         }
 
-        return res.status(201).json({menssage: 'Produto atualizado com sucesso'});
+        return res.status(200).json({menssage: 'Produto atualizado com sucesso'});
     }
 
     // Exclui um Produto
     async destroy(req, res) {
         const id = parseInt(req.params.id);
+        const produtoDeletado = await Produto.destroy(id);
 
-        const produtoExiste = await Produto.findById(id);
-
-        if(!produtoExiste) {
+        if(!produtoDeletado) {
             return res.status(404).json({ message: 'Produto não encontrado' });
         }
-
-        await Produto.destroy(id);
 
         return res.status(200).json({message: 'Produto excluido com sucesso'});
 

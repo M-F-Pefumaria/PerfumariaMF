@@ -1,9 +1,9 @@
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcryptjs');
 
-const usuarioController = {
+class usuarioController {
 
-    login: async (req, res) => {
+    async login(req, res) {
         const { email, senha } = req.body;
 
         // verifica se email e senha existem
@@ -31,9 +31,9 @@ const usuarioController = {
         }
 
         res.status(200).json(req.session.usuarioLogado);
-    },
+    }
 
-    cadastro: async (req, res) => {
+    async cadastro(req, res) {
         try {
             const { nome, sobrenome, cpf, data_nascimento, celular, email, senha, tipo_usuario } = req.body;
 
@@ -56,10 +56,8 @@ const usuarioController = {
             const usuario = await Usuario.findByEmail(email);
             if (usuario) {
                 return res.status(400).json({ message: 'Email já cadastrado' })
-                //req.flash('error_msg', 'Email já cadastrado')
-                //res.redirect('/login')
+                res.redirect('/login')
             } else {
-
                 // criptografa senha
                 const salt = await bcrypt.genSalt(10);
                 const senha_hash = await bcrypt.hash(senha, salt);
@@ -80,4 +78,4 @@ const usuarioController = {
 
 };
 
-module.exports = usuarioController;
+module.exports = new usuarioController();

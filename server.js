@@ -3,6 +3,11 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 const port = 3000;
+const path = require('path');
+
+
+// conectar com o front-end
+app.use(express.static('public'));
 
 // Middlewarepara express para realizar se
 app.use(express.json());
@@ -30,7 +35,7 @@ const produtoRoutes = require('./src/routes/produtoRoutes');
 app.use('/produto', produtoRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Servidor Rodando!')
+  res.sendFile(path.join(__dirname, 'public', 'admin', 'home.html'));
 });
 
 app.listen(port, () => {

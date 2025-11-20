@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/home.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-logo">M&F</h1>
+            <div class="nav-search">
+                <label for="">
+                    <span class="material-icons-outlined">search</span>
+                </label>
+                <input type="text" id="searchInput" placeholder="Buscar produtos">
+            </div>
+            <div class="nav-icons">
+                <span class="material-icons-outlined">favorite_border</span>
+                <a href="login.html"><span class="material-icons-outlined">account_circle</span></a>
+                <span class="material-icons-outlined" id="open-cart">shopping_cart</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Carrinho</h2>
+            <span class="material-icons-outlined" id="close-btn">close</span>
+        </div>
+        <div class="cart-items-container" id="cart-items">
+            <!-- Produtos adicionados dinamicamente -->
+        </div>
+        <div class="cart-footer">
+            <div class="summary-row total">
+                <p>Total</p>
+                <span id="cart-total-final">R$ 0,00</span>
+            </div>
+            <button class="btn-checkout" >Finalizar Compra</button>
+        </div>
+    </div>
+
+    <header class="header-container">
+        <div class="header-card">
+            
+        </div>
+        <div class="header-card">
+            
+        </div>
+        <div class="header-card">
+            
+        </div>
+    </header>
+
+   <main class="main-content">
+        <section class="produtos-section">
+            <h2 class="section-title">M&F Perfumaria para você</h2>
+            <div class="filter-tabs">
+                <button class="tab active">TODOS</button>
+                <button class="tab">FEMININO</button>
+                <button class="tab">MASCULINO</button>
+                <button class="tab">UNISSEX</button>
+            </div>
+            <div id="produtos-container">
+                <!-- Produtos adicionados dinamicamente -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h2 class="footer-logo">M&F</h2>
+                <p class="footer-desc">Perfumes artesanais com ingredientes botânicos naturais e sustentáveis.</p>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">EXPLORAR</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Feminino</a></li>
+                    <li><a href="#">Masculino</a></li>
+                    <li><a href="#">Unissex</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">SUPORTE</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Ajuda</a></li>
+                    <li><a href="#">Envio</a></li>
+                    <li><a href="#">Devoluções</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 M&F Perfumaria. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    
+    <script src="./js/home.js"></script>
+</body>
+</html>

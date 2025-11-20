@@ -35,7 +35,7 @@ const produtoRoutes = require('./src/routes/produtoRoutes');
 app.use('/produto', produtoRoutes);
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'login.html'));
+  res.sendFile(path.join(__dirname, 'public', 'cadastro.html'));
 });
 
 app.listen(port, () => {

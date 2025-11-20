@@ -1,72 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/index.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 </head>
+
 <body>
-    <nav class="navbar">
+
+    <header>
         <div class="nav-container">
-            <h1 class="nav-logo">M&F</h1>
+            <div>M&F</div>
             <div class="nav-search">
-                <label for="">
-                    <span class="material-icons-outlined">search</span>
-                </label>
+                <label><span class="material-icons-outlined">search</span></label>
                 <input type="text" id="searchInput" placeholder="Buscar produtos">
             </div>
-            <div class="nav-icons">
-                <span class="material-icons-outlined">favorite_border</span>
-                <a href="login.html"><span class="material-icons-outlined">account_circle</span></a>
-                <span class="material-icons-outlined" id="open-cart">shopping_cart</span>
-            </div>
+            <nav class="nav-icons">
+                <a href="#"><span class="material-icons-outlined">favorite_border</span></a>
+                <a href="#"><span class="material-icons-outlined">account_circle</span></a>
+                <a href=""><span class="material-icons-outlined" id="open-cart">shopping_cart</span></a>
+            </nav>
         </div>
-    </nav>
+    </header>
+
+    <div class="cart-overlay" id="cart-overlay"></div>
 
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
             <h2>Carrinho</h2>
-            <span class="material-icons-outlined" id="close-btn">close</span>
+            <span class="material-icons-outlined close-btn">close</span>
         </div>
+
         <div class="cart-items-container" id="cart-items">
-            <!-- Produtos adicionados dinamicamente -->
         </div>
+
         <div class="cart-footer">
             <div class="summary-row total">
                 <p>Total</p>
                 <span id="cart-total-final">R$ 0,00</span>
             </div>
-            <button class="btn-checkout" >Finalizar Compra</button>
+            <button class="btn-checkout">Finalizar Compra</button>
         </div>
     </div>
 
-    <header class="header-container">
-        <div class="header-card">
-            
+    <section>
+        <div class="filter-tabs">
+            <button>TODOS</button>
+            <button>FEMININO</button>
+            <button>MASCULINO</button>
+            <button>UNISSEX</button>
         </div>
-        <div class="header-card">
-            
-        </div>
-        <div class="header-card">
-            
-        </div>
-    </header>
+        <h1>As melhores fragrâncias para você</h1>
+    </section>
 
-   <main class="main-content">
-        <section class="produtos-section">
-            <h2 class="section-title">M&F Perfumaria para você</h2>
-            <div class="filter-tabs">
-                <button class="tab active">TODOS</button>
-                <button class="tab">FEMININO</button>
-                <button class="tab">MASCULINO</button>
-                <button class="tab">UNISSEX</button>
-            </div>
-            <div id="produtos-container">
-                <!-- Produtos adicionados dinamicamente -->
-            </div>
-        </section>
+    <main class="main-content">
+        <div id="produtos-container">
+            <!-- Produtos adicionados dinamicamente -->
+        </div>
     </main>
 
     <footer class="footer">
@@ -97,7 +90,8 @@
             <p>© 2025 M&F Perfumaria. Todos os direitos reservados.</p>
         </div>
     </footer>
-    
-    <script src="./js/home.js"></script>
+
+    <script defer src="./js/index.js"></script>
 </body>
+
 </html>

@@ -22,8 +22,19 @@ class ProdutoController {
 
     // Cria um novo Produto
     async create(req, res) {
-        const { nome, marca, codigo, imagem_url, descricao, preco, qtd_estoque, categoria, genero, nota_olfativa } = req.body;
-        const novoProduto = await Produto.create(req.body);
+
+        let imagePath = '';
+
+        if(req.file) {
+            imagePath = `uploads/${req.file.filename}`;
+        }
+
+        const dadosProduto = {
+            ...req.body,
+            imagem_url: imagePath
+        }
+
+        const novoProduto = await Produto.create(dadosProduto);
 
         return res.status(201).json(novoProduto);
     }
@@ -31,13 +42,19 @@ class ProdutoController {
     // Atualiza um Produto
     async update(req, res) {
         const id = parseInt(req.params.id);
-        const produtoAtualizado = await Produto.update(id, req.body);
+        const dadosAtualizados = { ...req.body};
+
+        if(req.file) {
+            dadosAtualizados.imagem_url = `uploads/${req.file.filename}`;
+        }
+
+        const produtoAtualizado = await Produto.update(id, dadosAtualizados);
 
         if(!produtoAtualizado) {
             return res.status(404).json({ message: 'Produto não encontrado' });
         }
 
-        return res.status(200).json({menssage: 'Produto atualizado com sucesso'});
+        return res.status(200).json({message: 'Produto atualizado com sucesso'});
     }
 
     // Exclui um Produto

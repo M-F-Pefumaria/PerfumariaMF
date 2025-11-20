@@ -1,10 +1,27 @@
 const btnProduto = document.getElementById('btn-produtos');
 const mainContainer = document.querySelector('.main-container');
 const headerTitle = document.getElementById('header-title');
+const logoutBtn = document.getElementById('logout-btn');
+
+// Verifica se o usuario é admin 
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+    const adminAuth = await fetch('/usuario/admin');
+
+    if (!adminAuth.ok) {
+        window.location.href = '/login.html';
+        return;
+    }
+
+});
+
 
 btnProduto.addEventListener('click', () => {
     carregarProdutos();
 });
+
+// Função para carregar os produtos
 
 function carregarProdutos() {
     fetch('/produto')
@@ -65,6 +82,8 @@ function carregarProdutos() {
         });
 }
 
+// Funcao para adicionar produtos
+
 function adicionarProduto() {
 
     mainContainer.innerHTML = '';
@@ -97,7 +116,7 @@ function adicionarProduto() {
                         <div class="grid-duas-colunas">
                             <div class="grupo-campo">
                                 <label for="preco">Preço:</label>
-                                <input type="number" id="preco" name="preco" required>
+                                <input type="number" id="preco" step="0.01" required>
                             </div>
                             <div class="grupo-campo">
                                 <label for="qtd_estoque">Estoque:</label>
@@ -137,7 +156,7 @@ function adicionarProduto() {
                     </div>
                 </div>
                 <div class="formulario-secao">
-                    <div class="grupo-campo">
+                    <div class="grupo-campo" enctype="multipart/form-data">
                         <label for="imagem_url">Imagens</label>
                         <input type="file" id="imagem_url" name="imagem_url" required>
                     </div>
@@ -164,25 +183,26 @@ function adicionarProduto() {
     form.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        const data = {
-            nome: document.getElementById('nome').value,
-            marca: document.getElementById('marca').value,
-            codigo: document.getElementById('codigo').value,
-            imagem_url: document.getElementById('imagem_url').value,
-            descricao: document.getElementById('descricao').value,
-            preco: parseFloat(document.getElementById('preco').value),
-            qtd_estoque: parseInt(document.getElementById('qtd_estoque').value),
-            categoria: document.getElementById('categoria').value,
-            genero: document.getElementById('genero').value,
-            nota_olfativa: document.getElementById('nota_olfativa').value
-        };
+        const formData = new FormData();
 
-        fetch('produto/cadastro', {
+        formData.append('nome', document.getElementById('nome').value);
+        formData.append('marca', document.getElementById('marca').value);
+        formData.append('codigo', document.getElementById('codigo').value);
+        formData.append('descricao', document.getElementById('descricao').value);
+        formData.append('preco', parseFloat(document.getElementById('preco').value));
+        formData.append('qtd_estoque', parseInt(document.getElementById('qtd_estoque').value));
+        formData.append('categoria', document.getElementById('categoria').value);
+        formData.append('genero', document.getElementById('genero').value);
+        formData.append('nota_olfativa', document.getElementById('nota_olfativa').value);
+
+        const fileInput = document.getElementById('imagem_url');
+        if (fileInput.files[0]) {
+            formData.append('imagem_url', fileInput.files[0]);
+        }
+
+        fetch('/produto/cadastro', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            body: formData
         }).then(res => {
             if (res.ok) {
                 alert('Produto adicionado com sucesso!');
@@ -195,6 +215,7 @@ function adicionarProduto() {
 }
 
 // Função para editar produto
+
 function editarProduto(produtoId) {
 
     mainContainer.innerHTML = '';
@@ -229,7 +250,7 @@ function editarProduto(produtoId) {
                         <div class="grid-duas-colunas">
                             <div class="grupo-campo">
                                 <label for="preco">Preço:</label>
-                                <input type="number" id="preco" value="${produto.preco}" required>
+                                <input type="number" id="preco" step="0.01" value="${produto.preco}" required>
                             </div>
                             <div class="grupo-campo">
                                 <label for="qtd_estoque">Estoque:</label>
@@ -269,9 +290,11 @@ function editarProduto(produtoId) {
                     </div>
                 </div>
                 <div class="formulario-secao">
-                    <div class="grupo-campo">
+                    <div class="grupo-campo" enctype="multipart/form-data">
                         <label for="imagem_url">Imagens</label>
-                        <input type="file" id="imagem_url" value="${produto.imagem_url}" required>
+                        <img src="/${produto.imagem_url}" width="100" style="display:block; margin-bottom:10px">
+                
+                        <input type="file" id="imagem_url" name="imagem_url">
                     </div>
                 </div>
                 <div class="formulario-secao">
@@ -296,25 +319,26 @@ function editarProduto(produtoId) {
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
 
-                const data = {
-                    nome: document.getElementById('nome').value,
-                    marca: document.getElementById('marca').value,
-                    codigo: document.getElementById('codigo').value,
-                    imagem_url: document.getElementById('imagem_url').value,
-                    descricao: document.getElementById('descricao').value,
-                    preco: parseFloat(document.getElementById('preco').value),
-                    qtd_estoque: parseInt(document.getElementById('qtd_estoque').value),
-                    categoria: document.getElementById('categoria').value,
-                    genero: document.getElementById('genero').value,
-                    nota_olfativa: document.getElementById('nota_olfativa').value
-                };
+                const formData = new FormData();
+
+                formData.append('nome', document.getElementById('nome').value);
+                formData.append('marca', document.getElementById('marca').value);
+                formData.append('codigo', document.getElementById('codigo').value);
+                formData.append('descricao', document.getElementById('descricao').value);
+                formData.append('preco', parseFloat(document.getElementById('preco').value));
+                formData.append('qtd_estoque', parseInt(document.getElementById('qtd_estoque').value));
+                formData.append('categoria', document.getElementById('categoria').value);
+                formData.append('genero', document.getElementById('genero').value);
+                formData.append('nota_olfativa', document.getElementById('nota_olfativa').value);
+
+                const fileInput = document.getElementById('imagem_url');
+                if (fileInput.files[0]) {
+                    formData.append('imagem_url', fileInput.files[0]);
+                }
 
                 fetch(`/produto/${produtoId}`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
+                    body: formData
                 }).then(res => {
                     if (res.ok) {
                         alert('Produto atualizado com sucesso!');
@@ -322,10 +346,9 @@ function editarProduto(produtoId) {
                     } else {
                         alert('Erro ao atualizar produto.');
                     }
-                })
+                });
             });
-
-        })
+        });
 }
 
 // Função para deletar produto
@@ -355,6 +378,39 @@ dropdownBtns.forEach(btn => {
     });
 });
 
-function renderizaForumalrio() {
+// Dropdown do menu de usuário
+const accountIcon = document.getElementById('account-icon');
+const userMenu = document.querySelector('.user-menu');
+const userDropdown = document.querySelector('.user-menu .dropdown-content');
 
+if (accountIcon && userDropdown && userMenu) {
+    accountIcon.addEventListener('click', function (e) {
+        e.stopPropagation();
+        userDropdown.classList.toggle('show');
+    });
+
+    // Fecha o dropdown ao clicar fora
+    document.addEventListener('click', function (e) {
+        if (!userMenu.contains(e.target)) {
+            userDropdown.classList.remove('show');
+        }
+    });
+
+    // Fecha com Esc
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            userDropdown.classList.remove('show');
+        }
+    });
+
+    // Logout
+    const logoutBtnEl = document.getElementById('logout-btn');
+    if (logoutBtnEl) {
+        logoutBtnEl.addEventListener('click', function (e) {
+            e.preventDefault();
+            fetch('/usuario/logout', { method: 'POST' }).finally(() => {
+                window.location.href = '/login.html';
+            });
+        });
+    }
 }

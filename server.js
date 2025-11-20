@@ -9,9 +9,11 @@ const path = require('path');
 // conectar com o front-end
 app.use(express.static('public'));
 
-// Middlewarepara express para realizar se
+// Middlewares
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 app.use(session({
   secret: 'secret',
@@ -35,7 +37,7 @@ const produtoRoutes = require('./src/routes/produtoRoutes');
 app.use('/produto', produtoRoutes);
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'cadastro.html'));
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(port, () => {

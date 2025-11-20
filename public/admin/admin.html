@@ -14,11 +14,19 @@
 
 <body>
 
+    <span id="msg-alerta"></span>
+
     <div class="header">
         <h1 id="header-title">Dashboard</h1>
         <div>
             <span class="material-icons-outlined">notifications</span>
-            <span class="material-icons-outlined">account_circle</span>
+            <div class="user-menu">
+                <span class="material-icons-outlined" id="account-icon" role="button" tabindex="0">account_circle</span>
+                <div class="dropdown-content">
+                    <a href="#" id="meu-perfil">Meu Perfil</a>
+                    <a href="#" id="logout-btn">Logout</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -33,7 +41,7 @@
                     <span class="material-icons-outlined arrow">expand_more</span>
                 </button>
 
-                <div class="dropdown-content">
+                <div class="sidebar-dropdown">
                     <a href="#" id="btn-produtos"><span class="material-icons-outlined">shopping_bag</span> Produtos</a>
                     <a href="#"><span class="material-icons-outlined">local_offer</span> Pedidos</a>
                 </div>

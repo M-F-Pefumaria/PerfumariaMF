@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfumaria M&F</title>
+    <link rel="stylesheet" href="/admin/css/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+
+<body>
+
+    <span id="msg-alerta"></span>
+
+    <div class="header">
+        <h1 id="header-title">Dashboard</h1>
+        <div>
+            <span class="material-icons-outlined">notifications</span>
+            <div class="user-menu">
+                <span class="material-icons-outlined" id="account-icon" role="button" tabindex="0">account_circle</span>
+                <div class="dropdown-content">
+                    <a href="#" id="meu-perfil">Meu Perfil</a>
+                    <a href="#" id="logout-btn">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <aside class="sidebar">
+        <ul class="sidebar-list">
+            <li class="sidebar-list-item">
+                <a href="#"><span class="material-icons-outlined">dashboard</span> Dashboard</a>
+            </li>
+            <li class="sidebar-list-item">
+                <button class="dropbtn">
+                    <div><span class="material-icons-outlined">shopping_basket</span> E-commerce</div>
+                    <span class="material-icons-outlined arrow">expand_more</span>
+                </button>
+
+                <div class="sidebar-dropdown">
+                    <a href="#" id="btn-produtos"><span class="material-icons-outlined">shopping_bag</span> Produtos</a>
+                    <a href="#"><span class="material-icons-outlined">local_offer</span> Pedidos</a>
+                </div>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="main-container">
+
+    </main>
+
+    <script src="/admin/js/admin.js" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px; /* Espaço para não colar nas bordas em telas pequenas */
+}
+
+/* Container Principal */
+.container {
+    width: 100%;
+    max-width: 480px;
+    background: #ffffff;
+    padding: 50px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.6s ease-out;
+    /* Garante que o container não ultrapasse a tela em altura */
+    margin: 20px 0; 
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilização do Título (serve para h3 ou p) */
+.container h3, 
+.container > p,
+.cadastro-form p {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 30px;
+    text-align: center;
+    letter-spacing: -0.5px;
+}
+
+/* Formulário */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #4a4a4a;
+    margin-bottom: -12px; /* Aproxima o label do input */
+    letter-spacing: 0.5px;
+    margin-left: 2px;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="tel"],
+input[type="date"] {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #e8e8e8;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #1a1a1a;
+    background: #fafafa;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+}
+
+input::placeholder {
+    color: #a0a0a0;
+}
+
+/* Botões */
+.btn-cadastro,
+.btn-login {
+    width: 100%;
+    padding: 16px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+}
+
+.btn-cadastro:hover,
+.btn-login:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    transform: translateY(-2px);
+}
+
+.btn-cadastro:active,
+.btn-login:active {
+    transform: translateY(0);
+}
+
+/* Links */
+a {
+    text-align: center;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 5px;
+    transition: color 0.3s ease;
+    display: block; /* Garante que o link fique centralizado */
+}
+
+a:hover {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+/* Mensagem de Alerta */
+#msg-alerta {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 10px;
+    display: block;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+    .container {
+        padding: 40px 30px;
+    }
+    
+    .container h3,
+    .container > p {
+        font-size: 24px;
+    }
+    
+    form {
+        gap: 18px;
+    }
+}
+
+@media (max-width: 400px) {
+    .container {
+        padding: 35px 25px;
+    }
+    
+    input {
+        padding: 12px 16px;
+    }
+}

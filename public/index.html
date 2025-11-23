@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/index.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div>M&F</div>
+            <div class="nav-search">
+                <label><span class="material-icons-outlined">search</span></label>
+                <input type="text" id="searchInput" placeholder="Buscar produtos">
+            </div>
+            <nav class="nav-icons">
+                <a href="#"><span class="material-icons-outlined">favorite_border</span></a>
+                <a href="#"><span class="material-icons-outlined">account_circle</span></a>
+                <a href=""><span class="material-icons-outlined" id="open-cart">shopping_cart</span></a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="cart-overlay" id="cart-overlay"></div>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>Carrinho</h2>
+            <span class="material-icons-outlined close-btn">close</span>
+        </div>
+
+        <div class="cart-items-container" id="cart-items">
+        </div>
+
+        <div class="cart-footer">
+            <div class="summary-row total">
+                <p>Total</p>
+                <span id="cart-total-final">R$ 0,00</span>
+            </div>
+            <button class="btn-checkout">Finalizar Compra</button>
+        </div>
+    </div>
+
+    <section>
+        <div class="filter-tabs">
+            <button>TODOS</button>
+            <button>FEMININO</button>
+            <button>MASCULINO</button>
+            <button>UNISSEX</button>
+        </div>
+        <h1>As melhores fragrâncias para você</h1>
+    </section>
+
+    <main class="main-content">
+        <div id="produtos-container">
+            <!-- Produtos adicionados dinamicamente -->
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col">
+                <h2 class="footer-logo">M&F</h2>
+                <p class="footer-desc">Perfumes artesanais com ingredientes botânicos naturais e sustentáveis.</p>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">EXPLORAR</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Feminino</a></li>
+                    <li><a href="#">Masculino</a></li>
+                    <li><a href="#">Unissex</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3 class="footer-title">SUPORTE</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Ajuda</a></li>
+                    <li><a href="#">Envio</a></li>
+                    <li><a href="#">Devoluções</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 M&F Perfumaria. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script defer src="./js/index.js"></script>
+</body>
+
+</html>

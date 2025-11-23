@@ -1,0 +1,415 @@
+:root {
+    --color-primary: #3B82F6;
+    --color-primary-light: #EFF6FF;
+    --color-danger: #EF4444;
+    --color-warning: #F59E0B;
+    --color-info: #3B82F6;
+    --color-success: #10B981;
+    
+    --bg-main: #F4F7FA;
+    --bg-sidebar: #FFFFFF;
+    --bg-content: #FFFFFF;
+    
+    --text-primary: #1F2937;
+    --text-secondary: #6B7280;
+    --text-light: #374151;
+    --border-color: #E5E7EB;
+    --border-dark: #d1d5db;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    
+    --radius-sm: 0.5rem;
+    --radius-md: 10px;
+    --radius-lg: 20px;
+    
+    --transition-fast: 0.2s ease-in-out;
+    --transition-base: 0.3s ease-in-out;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+button {
+    font-family: 'Poppins', sans-serif;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "sidebar header"
+        "sidebar main";
+}
+
+.header {
+    grid-area: header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.header .material-icons-outlined {
+    padding-left: 2rem;
+    font-size: 28px;
+    cursor: pointer;
+    transition: color var(--transition-base);
+}
+
+/* Estilo da Sidebar */
+
+.sidebar {
+    grid-area: sidebar;
+    width: 300px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    flex-shrink: 0;
+    z-index: 10;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar-list-item {
+    margin-bottom: 1rem;
+}
+
+.sidebar-list-item a {
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+}
+
+.nav-link,
+.dropbtn {
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+    width: 100%;
+}
+
+.dropbtn div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dropbtn .material-icons-outlined {
+    transition: transform var(--transition-base);
+}
+
+.nav-link.active,
+.dropbtn.active {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.dropbtn.active .material-icons-outlined.arrow {
+    transform: rotate(180deg);
+}
+
+.sidebar-dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-base);
+}
+
+.sidebar-dropdown.show {
+    max-height: 500px;
+}
+
+.sidebar-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0.6rem 0.5rem 0.6rem 2.5rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    transition: color var(--transition-fast);
+}
+
+.sidebar-dropdown a:hover {
+    color: var(--text-primary);
+}
+
+/* MAIN CONTAINER */
+
+.main-container {
+    background-color: var(--bg-content);
+    grid-area: main;
+    padding: 2.5rem;
+    margin: 0 2rem 2rem 2rem;
+    border-radius: var(--radius-lg);
+    overflow-y: auto;
+}
+
+/* Lista de Produtos */
+
+.header-produtos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.header-produtos h2 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.header-produtos button {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    transition: all var(--transition-base);
+}
+
+.header-produtos button:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    box-shadow: var(--shadow-sm);
+}
+
+thead tr th {
+    text-align: left;
+    padding: 20px;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background-color: var(--bg-content);
+}
+
+tbody tr {
+    border-bottom: 1px solid var(--border-color);
+    transition: background-color var(--transition-fast);
+}
+
+tbody tr:hover {
+    background-color: #fafafa;
+}
+
+tbody tr td {
+    padding: 20px;
+    font-size: 14px;
+    color: var(--text-primary);
+    vertical-align: middle;
+}
+
+tbody tr td.acoes {
+    display: flex;
+    gap: 8px;
+}
+
+tbody tr td button {
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-fast);
+    display: inline-flex;
+    align-items: center;
+}
+
+tbody tr td button .material-icons-outlined {
+    font-size: 20px;
+    color: var(--text-secondary);
+    transition: color var(--transition-fast);
+}
+
+tbody tr td button:hover .material-icons-outlined {
+    color: var(--color-primary);
+}
+
+tbody tr td button.delete:hover .material-icons-outlined {
+    color: var(--color-danger);
+}
+
+/* FORMULÁRIOS */
+
+.formulario-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.formulario-esquerda,
+.formulario-direita {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.formulario-secao {
+    width: 100%;
+}
+
+.grid-duas-colunas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.grupo-campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.grupo-campo label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"],
+textarea,
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    background-color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    transition: all var(--transition-fast);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="file"]:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+textarea {
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.formulario-rodape {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.botao {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.botao-cancelar {
+    background-color: transparent;
+    color: var(--text-light);
+    border: 1px solid var(--border-dark);
+}
+
+.botao-cancelar:hover {
+    background-color: var(--bg-main);
+    border-color: var(--text-light);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.botao-publicar {
+    background-color: var(--color-primary);
+    color: #ffffff;
+}
+
+.botao-publicar:hover {
+    background-color: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ---- */
+
+/* CSS para o Dropdown */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none; /* Escondido por padrão */
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+/* O seu JS adiciona essa classe 'show' para mostrar o menu */
+.show {
+    display: block;
+}

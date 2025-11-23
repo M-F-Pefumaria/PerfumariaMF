@@ -35,20 +35,20 @@ class usuarioController {
 
     async cadastro(req, res) {
         try {
-            const { nome, sobrenome, cpf, data_nascimento, celular, email, senha, tipo_usuario } = req.body;
+            const { nome, sobrenome, cpf, dataNascimento, celular, email, senha, senhaConfirmacao} = req.body;
 
             // verifica se todos os campos foram preenchidos
-            if (!email || !senha || !nome || !sobrenome || !cpf || !data_nascimento || !celular) {
+            if (!email || !senha || !nome || !sobrenome || !cpf || !dataNascimento || !celular || !senhaConfirmacao) {
                 return res.status(400).json({ message: 'Preencha todos os campos obrigatórios' })
             }
 
             // verifica tamanho da senha
-            if (req.body.senha.length < 4) {
+            if (senha.length < 4) {
                 return res.status(400).json({ message: 'Senha muito curta' })
             }
 
             // verifica correspondencia das senhas
-            if (req.body.senha != req.body.senha_confirmacao) {
+            if (senha != senhaConfirmacao) {
                 return res.status(400).json({ message: 'As senhas são diferentes, tente novamente' })
             }
 
@@ -56,17 +56,16 @@ class usuarioController {
             const usuario = await Usuario.findByEmail(email);
             if (usuario) {
                 return res.status(400).json({ message: 'Email já cadastrado' })
-                res.redirect('/login')
             } else {
                 // criptografa senha
                 const salt = await bcrypt.genSalt(10);
                 const senha_hash = await bcrypt.hash(senha, salt);
 
                 // atribui automaticamente o tipo cliete para o cliente
-                const tipo = tipo_usuario || 'CLIENTE';
+                const tipo = 'CLIENTE';
 
                 // Manda para o model usuario para inserir usuario no banco
-                await Usuario.create(nome, sobrenome, cpf, data_nascimento, celular, email, senha_hash, tipo);
+                await Usuario.create(nome, sobrenome, cpf, dataNascimento, celular, email, senha_hash, tipo);
 
                 res.status(201).json({ message: 'Usuario cadastrado com sucesso' });
             }

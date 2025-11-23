@@ -3,10 +3,17 @@ const express = require('express');
 const session = require('express-session');
 const app = express();
 const port = 3000;
+const path = require('path');
 
-// Middlewarepara express para realizar se
+
+// conectar com o front-end
+app.use(express.static('public'));
+
+// Middlewares
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
 
 app.use(session({
   secret: 'secret',
@@ -30,7 +37,7 @@ const produtoRoutes = require('./src/routes/produtoRoutes');
 app.use('/produto', produtoRoutes);
 
 app.get('/', (req, res) => {
-  res.send('Servidor Rodando!')
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(port, () => {

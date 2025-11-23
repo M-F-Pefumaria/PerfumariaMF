@@ -1,177 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     min-height: 100vh;
     display: flex;
-    justify-content: center;
     align-items: center;
-    padding: 20px;
+    justify-content: center;
+    padding: 20px; /* Espaço para não colar nas bordas em telas pequenas */
 }
 
+/* Container Principal */
 .container {
     width: 100%;
-    max-width: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#cadastro-form {
+    max-width: 480px;
     background: #ffffff;
-    padding: 40px;
+    padding: 50px 40px;
     border-radius: 16px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    width: 100%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    animation: fadeIn 0.6s ease-out;
+    /* Garante que o container não ultrapasse a tela em altura */
+    margin: 20px 0; 
 }
 
-#cadastro-form h3 {
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilização do Título (serve para h3 ou p) */
+.container h3, 
+.container > p,
+.cadastro-form p {
     font-size: 28px;
     font-weight: 600;
-    color: #2c3e50;
-    text-align: center;
+    color: #1a1a1a;
     margin-bottom: 30px;
+    text-align: center;
+    letter-spacing: -0.5px;
 }
 
-#cadastro-form {
+/* Formulário */
+form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
 }
 
 label {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
-    color: #34495e;
-    margin-bottom: -10px;
+    color: #4a4a4a;
+    margin-bottom: -12px; /* Aproxima o label do input */
+    letter-spacing: 0.5px;
+    margin-left: 2px;
 }
 
+/* Inputs */
 input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="tel"],
 input[type="date"] {
     width: 100%;
-    padding: 14px 16px;
-    border: 1px solid #dfe6e9;
-    border-radius: 8px;
+    padding: 14px 18px;
+    border: 2px solid #e8e8e8;
+    border-radius: 10px;
     font-size: 15px;
+    color: #1a1a1a;
+    background: #fafafa;
     transition: all 0.3s ease;
-    background-color: #f8f9fa;
+    outline: none;
 }
 
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus,
-input[type="tel"]:focus,
-input[type="date"]:focus {
-    outline: none;
-    border-color: #667eea;
-    background-color: #ffffff;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+input:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
 }
 
 input::placeholder {
-    color: #95a5a6;
+    color: #a0a0a0;
 }
 
-.btn-cadastro {
+/* Botões */
+.btn-cadastro,
+.btn-login {
     width: 100%;
-    padding: 14px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    padding: 16px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: #ffffff;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
-    margin-top: 10px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
 }
 
-.btn-cadastro:hover {
+.btn-cadastro:hover,
+.btn-login:hover {
+    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
-.btn-cadastro:active {
+.btn-cadastro:active,
+.btn-login:active {
     transform: translateY(0);
 }
 
-#cadastro-form a {
+/* Links */
+a {
     text-align: center;
-    color: #667eea;
+    color: #2563eb;
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
+    margin-top: 5px;
     transition: color 0.3s ease;
-    display: block;
+    display: block; /* Garante que o link fique centralizado */
 }
 
-#cadastro-form a:hover {
-    color: #764ba2;
+a:hover {
+    color: #1d4ed8;
     text-decoration: underline;
 }
 
-.msg-alerta {
-    display: none;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 14px;
+/* Mensagem de Alerta */
+#msg-alerta {
     text-align: center;
+    font-size: 13px;
     margin-top: 10px;
-}
-
-.msg-alerta.erro {
     display: block;
-    background-color: #fee;
-    color: #c33;
-    border: 1px solid #fcc;
-}
-
-.msg-alerta.sucesso {
-    display: block;
-    background-color: #efe;
-    color: #3c3;
-    border: 1px solid #cfc;
 }
 
 /* Responsividade */
 @media (max-width: 600px) {
-    #cadastro-form {
-        padding: 30px 20px;
+    .container {
+        padding: 40px 30px;
     }
-
-    #cadastro-form h3 {
+    
+    .container h3,
+    .container > p {
         font-size: 24px;
     }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="tel"],
-    input[type="date"] {
-        padding: 12px 14px;
+    
+    form {
+        gap: 18px;
     }
 }
 
-/* Animação de entrada */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
+@media (max-width: 400px) {
+    .container {
+        padding: 35px 25px;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    
+    input {
+        padding: 12px 16px;
     }
-}
-
-#cadastro-form {
-    animation: fadeIn 0.5s ease;
 }

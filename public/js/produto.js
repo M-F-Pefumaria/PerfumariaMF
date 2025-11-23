@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
-    const infoSection = document.getElementById("info-section");
+    const productContainer = document.getElementById("product-container");
     const params = new URLSearchParams(window.location.search);
     const idProduto = params.get('id');
 
@@ -12,31 +12,37 @@ document.addEventListener("DOMContentLoaded", async () => {
     })
         .then(response => response.json())
         .then(produto => {
-            infoSection.innerHTML = `
-                <div>
-                    <h1>${produto.nome}</h1>
-                    <span class="price">R$ ${produto.preco}</span>
-                </div>
-                <div class="description-box">
-                    <p>Descrição:</p>
-                    <p>${produto.descricao}</p>
-                </div>
-                <div class="tags-container">
-                    <p><span>Notas:</span> ${produto.nota_olfativa}</p>
-                </div>
-                <div>
-                    <button id="decrementQuantity">-</button>
-                    <span id="quantity">1</span>
-                    <button id="incrementQuantity">+</button>
-                </div>
-                <div class="actions">
-                    <button onclick="addToCart(${produto.id_produto})">Adicionar ao Carrinho</button>
-                </div>
+            productContainer.innerHTML = `
+                <section class="img-section">
+                   <img src="${produto.imagem_url}" alt="${produto.nome}">
+                </section>
+                <section class="info-section">
+                    <div>
+                        <h1>${produto.nome}</h1>
+                        <span class="price">R$ ${produto.preco}</span>
+                    </div>
+                    <div class="description-box">
+                        <p>Descrição:</p>
+                        <p>${produto.descricao}</p>
+                    </div>
+                    <div class="tags-container">
+                        <p><span>Notas:</span> ${produto.nota_olfativa}</p>
+                    </div>
+                    <div>
+                        <button id="decrementQuantity">-</button>
+                        <span id="quantity">1</span>
+                        <button id="incrementQuantity">+</button>
+                    </div>
+                    <div class="actions">
+                        <button id="btn-adicionar">Adicionar ao Carrinho</button>
+                    </div>
+                </section>
             `;
 
             const incrementQuantityButton = document.getElementById('incrementQuantity');
             const decrementQuantityButton = document.getElementById('decrementQuantity');
             const quantity = document.getElementById("quantity");
+            const btnAdicionar = document.getElementById("btn-adicionar");
 
             incrementQuantityButton.addEventListener('click', () => {
                 let currentQuantity = parseInt(quantity.innerText);
@@ -56,6 +62,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             });
 
+            if(produto.qtd_estoque > 0) {
+                btnAdicionar.addEventListener('click', () =>  {
+                    adicionarProduto(produto);
+                });
+            } else {
+                btnAdicionar.textContent = "ESGOTADO";
+                btnAdicionar.disabled = true;
+                btnAdicionar.style.cursor = "not-allowed";
+            }
+
         })
 });
 
@@ -66,3 +82,7 @@ document.getElementById("open-cart").addEventListener('click', () => {
 document.getElementById("close-btn").addEventListener('click', () => {
     document.getElementById("cart-sidebar").classList.remove('open-sidebar');
 })
+
+function adicionarProduto(produto) {
+    alert(`Você adicionou "${produto.nome}" ao carrinho!`);
+}

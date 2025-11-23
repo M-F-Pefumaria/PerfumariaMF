@@ -1,10 +1,5 @@
-const cadastroForm = document.getElementById('cadastro-form');
-const msgAlerta = document.getElementById('msg-alerta');
-
-cadastroForm.addEventListener('submit', async (e) => {
+document.getElementById('cadastro-form').addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    msgAlerta.innerText = '';
 
     const dadosUsuario = {
         nome: document.getElementById('nome').value,
@@ -17,6 +12,8 @@ cadastroForm.addEventListener('submit', async (e) => {
         celular: document.getElementById('celular').value
     }
 
+    const msgAlerta = document.getElementById('msg-alerta');
+
     const cadastro = await fetch('/usuario/cadastro', {
         method: 'POST',
         headers: {
@@ -28,9 +25,7 @@ cadastroForm.addEventListener('submit', async (e) => {
     const cadastroData = await cadastro.json();
 
     if (cadastro.ok) {
-
         msgAlerta.innerText = 'Cadastro realizado com sucesso!';
-
         setTimeout(() => {
             window.location.href = '/login.html';
         }, 2000);

@@ -145,10 +145,6 @@ input::placeholder {
     margin-top: 15px;
 }
 
-.btn-login::before {
-    content: 'Entrar';
-}
-
 a {
     text-align: center;
     color: #2563eb;

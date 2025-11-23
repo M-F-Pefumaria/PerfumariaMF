@@ -32,7 +32,7 @@ loginForm.addEventListener('submit', async (e) => {
             if(loginData.tipo === 'ADMIN') {
                 window.location.href = '/admin/admin.html';
             } else {
-                window.location.href = '/home.html';
+                window.location.href = '/index.html';
             }
         }, 2000)
     } else {

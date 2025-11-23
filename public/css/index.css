@@ -323,3 +323,36 @@ section h1 {
     background: #fff;
     border-top: 1px solid #eee;
 }
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.summary-row.total {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #000;
+    font-weight: 500;
+    border-top: 1px solid #eee; /* Linha antes do total final */
+    padding-top: 15px;
+}
+
+.btn-checkout {
+    width: 100%;
+    background: #000;
+    color: #fff;
+    padding: 18px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.cart-header .material-icons-outlined {
+    cursor: pointer;
+}

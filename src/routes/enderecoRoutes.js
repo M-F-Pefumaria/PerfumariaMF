@@ -4,5 +4,7 @@ const enderecoController = require('../controllers/enderecoController')
 const {isAuth} = require('../middlewares/auth');
 
 router.post('/', isAuth, enderecoController.create);
-router.get('/', isAuth, enderecoController.listarMeusEnderecos);
-router.delete('/:id', isAuth, enderecoController.deletar);
+router.get('/', isAuth, enderecoController.index);
+router.delete('/:id', isAuth, enderecoController.destroy);
+
+module.exports = router;

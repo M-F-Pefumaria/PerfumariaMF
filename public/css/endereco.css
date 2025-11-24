@@ -92,17 +92,16 @@ body {
     border-radius: 10px;
     padding: 40px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
 }
 
-.mensagem {
+#mensagem {
     color: #333;
     font-size: 16px;
     margin-bottom: 30px;
 }
 
 /* Botão adicionar */
-.btn-add {
+#btn-addEndereco {
     background: #007bff;
     padding: 12px 28px;
     border: none;
@@ -113,7 +112,7 @@ body {
     transition: 0.2s ease;
 }
 
-.btn-add:hover {
+#btn-addEndereco:hover {
     background: #005fcc;
 }
 
@@ -125,7 +124,7 @@ body {
 }
 
 /* Formulário */
-.form-container {
+#form-container {
     display: flex;
     flex-direction: column;
     gap: 12px;

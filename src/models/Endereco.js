@@ -2,20 +2,25 @@ const db = require('../config/database');
 
 class Endereco {
 
-    async create(cep, logradouro, numero, bairro, cidade, estado, complemento, id_usuario) {
+    async create(id_usuario, cep, logradouro, numero, bairro, cidade, estado, complemento) {
         const [result] = await db.query(`INSERT INTO endereco (cep, logradouro, numero, bairro, cidade, estado, complemento, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`, [cep, logradouro, numero, bairro, cidade, estado, complemento, id_usuario]);
 
-        return { id: result.insertId, ...dadosEndereco };
+        return { id_endereco: result.insertId, id_usuario: id_usuario};
     }
 
     async findById(idUsuario) {
         const [rows] = await db.query('SELECT * FROM endereco WHERE id_usuario = ?', [idUsuario]);
-
         return rows;
     }
 
+    async update(idEndereco, idUsuario, {cep, logradouro, numero, bairro, cidade, estado, complemento}) {
+        const [result] = await db.query("UPDATE produto SET cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? WHERE id_endereco AND id_usuario = ?", [cep, logradouro, numero, bairro, cidade, estado, complemento, idEndereco, idUsuario])
+
+        return result.affectedRows
+    }
+
     async destroy(idEndereco, idUsuario) {
-        const [result] = await db.query("DELETE FROM endereco WHERE id_produto = ? AND id_usuario = ?", [idEndereco, idUsuario]);
+        const [result] = await db.query("DELETE FROM endereco WHERE id_endereco = ? AND id_usuario = ?", [idEndereco, idUsuario]);
         return result.affectedRows
     }
 }

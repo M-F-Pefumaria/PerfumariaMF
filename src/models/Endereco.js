@@ -12,13 +12,7 @@ class Endereco {
         const [rows] = await db.query('SELECT * FROM endereco WHERE id_usuario = ?', [idUsuario]);
         return rows;
     }
-
-    async update(idEndereco, idUsuario, {cep, logradouro, numero, bairro, cidade, estado, complemento}) {
-        const [result] = await db.query("UPDATE produto SET cep = ?, logradouro = ?, numero = ?, bairro = ?, cidade = ?, estado = ?, complemento = ? WHERE id_endereco AND id_usuario = ?", [cep, logradouro, numero, bairro, cidade, estado, complemento, idEndereco, idUsuario])
-
-        return result.affectedRows
-    }
-
+    
     async destroy(idEndereco, idUsuario) {
         const [result] = await db.query("DELETE FROM endereco WHERE id_endereco = ? AND id_usuario = ?", [idEndereco, idUsuario]);
         return result.affectedRows

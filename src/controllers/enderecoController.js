@@ -2,9 +2,6 @@ const Endereco = require('../models/Endereco');
 
 class enderecoController {
 
-    
-
-
     async index(req, res) {
         const id_usuario = req.session.usuarioLogado.id;
         const enderecos = await Endereco.findById(id_usuario);
@@ -19,20 +16,6 @@ class enderecoController {
         const novoEndereco = await Endereco.create(id_usuario, cep, logradouro, numero, bairro, cidade, estado, complemento);
 
         res.status(201).json(novoEndereco);
-    }
-
-    async update(req, res) {
-        const id_usuario = req.session.usuarioLogado.id;
-        const id_endereco = parseInt(req.params.id);
-        const dadosAtualizados = { ...req.body };
-
-        const enderecoAtualizado = await Endereco.update(id_endereco, dadosAtualizados);
-
-        if (!enderecoAtualizado) {
-            return res.status(404).json({ message: 'Endereço não encontrado' });
-        }
-
-        return res.status(200).json({ message: 'Endereço atualizado com sucesso' });
     }
 
     async destroy(req, res) {

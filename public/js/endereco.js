@@ -31,11 +31,7 @@ async function carregarEnderecos() {
             card.className = "card-endereco";
 
             card.innerHTML = `
-                <h4>${end.logradouro}, ${end.numero}</h4>
-                <p>${end.bairro} - ${end.cidade}/${end.estado}</p>
-                <p>CEP: ${end.cep}</p>
-                ${end.complemento ? `<p>Compl: ${end.complemento}</p>` : ''}
-
+                <p>${end.logradouro} - ${end.bairro}, ${end.cidade}/${end.estado}</p>
                 <button class="btn-deletar" onclick="deletarEndereco(${end.id_endereco})">
                     <span class="material-icons-outlined">delete</span>
                 </button>
@@ -58,7 +54,7 @@ async function cadastrarEndereco() {
     form.id = "form-endereco";
 
     form.innerHTML = `
-            <div id="mensagem" class="mensagem"></div>
+            <span id="err-menssage"></span>
 
             <label>CEP</label>
             <input type="text" class="input" id="cep">
@@ -93,6 +89,7 @@ async function cadastrarEndereco() {
             </div>
 
             <div class="buttons">
+                <a href="/endereco.html">voltar</a>
                 <button type="submit" class="btn-save">Salvar</button>
             </div>
         `;
@@ -111,7 +108,7 @@ async function consultarCep() {
     const bairro = document.getElementById('bairro');
     const cidade = document.getElementById('cidade');
     const estado = document.getElementById('estado');
-    const mensagem = document.getElementById('mensagem');
+    const errorMenssage = document.getElementById('err-menssage');
 
     cep.addEventListener('focusout', async () => {
 
@@ -141,16 +138,13 @@ async function consultarCep() {
             estado.value = responseCep.uf;
 
         } catch (error) {
-            mensagem.style.display = "block";
-            mensagem.textContent = error.cep_error || 'Erro inesperado.';
+            errorMenssage.style.display = "block";
+            errorMenssage.textContent = error.cep_error || 'Erro inesperado.';
 
             setTimeout(() => {
-                mensagem.style.display = "none";
+                errorMenssage.style.display = "none";
             }, 4000);
-
-            console.log(error);
         }
-
     });
 }
 
@@ -174,8 +168,6 @@ async function salvarEndereco(e) {
         },
         body: JSON.stringify(dados)
     });
-
-    const data = await response.json();
 
     if (response.ok) {
         alert('Endereço salvo!');

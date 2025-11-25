@@ -1,5 +1,4 @@
 const db = require('../config/database');
-const { create } = require('./Produto');
 
 class Usuario {
 

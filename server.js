@@ -36,6 +36,9 @@ app.use('/usuario', usuarioRoutes);
 const produtoRoutes = require('./src/routes/produtoRoutes');
 app.use('/produto', produtoRoutes);
 
+const enderecoRoutes = require('./src/routes/enderecoRoutes');
+app.use('/endereco', enderecoRoutes);
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });

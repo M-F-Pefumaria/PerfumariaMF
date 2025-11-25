@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     carregarProdutos();
+    atualizarCarrinho();
 });
 
 async function carregarProdutos() {
@@ -7,15 +8,17 @@ async function carregarProdutos() {
     const produtoContainer = document.getElementById('produtos-container');
 
     fetch('/produto')
-    .then(res => res.json())
-    .then(data => {
-        produtoContainer.innerHTML = '';
+        .then(res => res.json())
+        .then(data => {
+            produtoContainer.innerHTML = '';
 
-        data.forEach(produto => {
-            const divProduto = document.createElement('div');
-            divProduto.classList.add('produto-card');
+            data.forEach(produto => {
 
-            divProduto.innerHTML = `
+                if (produto.qtd_estoque > 0) {
+                    const divProduto = document.createElement('div');
+                    divProduto.classList.add('produto-card');
+
+                    divProduto.innerHTML = `
                 <a href="produto.html?id=${produto.id_produto}">
                     <span class="produto-favorite material-icons-outlined">favorite_border</span>
                     <img src="${produto.imagem_url}" alt="${produto.nome}">
@@ -28,15 +31,17 @@ async function carregarProdutos() {
                     </div>
                 </a>
             `;
-            produtoContainer.appendChild(divProduto)
+                    produtoContainer.appendChild(divProduto);
+                }
+
+            });
         });
-    });
 }
 
 // Função para alternar o carrinho
 function toggleCart() {
     document.getElementById("cart-sidebar").classList.toggle('open-sidebar');
-    document.getElementById("cart-overlay").classList.toggle('open-sidebar'); 
+    document.getElementById("cart-overlay").classList.toggle('open-sidebar');
 }
 
 const openCartBtn = document.getElementById("open-cart");

@@ -1,6 +1,6 @@
 const Produto = require('../models/Produto');
 
-class ProdutoController {
+class produtoController {
 
     // Listagem de Produtos
     async index(req, res) {
@@ -71,4 +71,4 @@ class ProdutoController {
     }
 }
 
-module.exports = new ProdutoController();
+module.exports = new produtoController();

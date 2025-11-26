@@ -18,6 +18,17 @@ class enderecoController {
         res.status(201).json(novoEndereco);
     }
 
+    async update(req, res) {
+
+        const id_usuario = req.session.usuarioLogado.id;
+        const id_endereco = req.params.id;
+        const dadosAtualizados = { ...req.body };
+
+        await Endereco.update(id_endereco, id_usuario, dadosAtualizados);
+
+        return res.status(200).json({ message: 'Endereço atualizado com sucesso' });
+    }
+
     async destroy(req, res) {
         const id_usuario = req.session.usuarioLogado.id;
         const id_endereco = req.params.id

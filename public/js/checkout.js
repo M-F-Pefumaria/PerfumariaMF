@@ -1,16 +1,14 @@
+const btnAddEndereco = document.getElementById("add-address");
+const addressBox = document.getElementById("address-box");
+const addressTitle = document.getElementById("address-title");
+
 document.addEventListener('DOMContentLoaded', async () => {
     carregarEnderecos();
 
-    const btnAddEndereco = document.getElementById("btn-addEndereco");
     btnAddEndereco.addEventListener('click', cadastrarEndereco);
-
 });
 
 async function carregarEnderecos() {
-    const content = document.getElementById("content");
-
-    const btnAddEndereco = document.getElementById("btn-addEndereco");
-    btnAddEndereco.style.display = "block";
 
     const response = await fetch('/endereco');
     const enderecos = await response.json();
@@ -21,32 +19,42 @@ async function carregarEnderecos() {
         return;
     }
 
-    content.innerHTML = '';
+    addressBox.innerHTML = '';
+    addressTitle.innerHTML = 'entrega';
 
     if (enderecos.length === 0) {
-        content.innerHTML = '<p id="message">Você ainda não possui nenhum endereço cadastrado.</p>';
+        btnAddEndereco.style.display = "block";
     } else {
+
+        btnAddEndereco.style.display = "none";
+
         enderecos.forEach(end => {
             const card = document.createElement('div');
             card.className = "card-endereco";
 
             card.innerHTML = `
-                <p>${end.logradouro} - ${end.bairro}, ${end.cidade}/${end.estado}</p>
-                <button class="btn-deletar" onclick="deletarEndereco(${end.id_endereco})">
-                    <span class="material-icons-outlined">delete</span>
-                </button>
+                <div>
+                    <p>${end.logradouro}, ${end.numero}</p>
+                    <p><strong>CEP:</strong> ${end.cep} | ${end.cidade} - ${end.estado}</p>
+                </div>
+                <div class="card-btn">
+                    <button onclick="deletarEndereco(${end.id_endereco})">
+                        <span class="material-icons-outlined">delete</span>
+                    </button>
+                    <button onclick="editarEndereco(${end.id_endereco})">
+                        <span class="material-icons-outlined">edit</span>
+                    </button>
+                </div>
             `;
-            content.appendChild(card);
+            addressBox.appendChild(card);
         });
     }
 }
 
 async function cadastrarEndereco() {
-    const btnAddEndereco = document.getElementById("btn-addEndereco");
-    const content = document.getElementById("content");
 
-    content.innerHTML = '';
-
+    addressBox.innerHTML = '';
+    addressTitle.textContent = 'adicionar endereço';
 
     btnAddEndereco.style.display = "none";
 
@@ -89,17 +97,16 @@ async function cadastrarEndereco() {
             </div>
 
             <div class="buttons">
-                <a href="/endereco.html">voltar</a>
+                <a href="/checkout.html">voltar</a>
                 <button type="submit" class="btn-save">Salvar</button>
             </div>
         `;
 
-    content.appendChild(form);
+    addressBox.appendChild(form);
 
     consultarCep();
 
-    const formEndereco = document.getElementById("form-endereco");
-    formEndereco.addEventListener('submit', salvarEndereco);
+    document.getElementById("form-endereco").addEventListener('submit', salvarEndereco);
 }
 
 async function consultarCep() {
@@ -175,6 +182,109 @@ async function salvarEndereco(e) {
         carregarEnderecos();
     } else {
         alert('Erro ao salvar endereço.');
+    }
+}
+
+async function editarEndereco(id) {
+    const response = await fetch(`/endereco/${id}`);
+
+    const endereco = await response.json();
+
+    addressBox.innerHTML = '';
+    addressTitle.textContent = 'editar endereço';
+    btnAddEndereco.style.display = "none";
+
+    const form = document.createElement("form");
+    form.id = "form-endereco";
+
+    form.innerHTML = `
+            <span id="err-menssage"></span>
+
+            <label>CEP</label>
+            <input type="text" class="input" id="cep">
+
+            <label>Endereço</label>
+            <input type="text" class="input" id="address">
+
+            <div class="row">
+                <div class="col">
+                    <label>Número</label>
+                    <input type="text" class="input" id="numero">
+                </div>
+                <div class="col">
+                    <label>Bairro</label>
+                    <input type="text" class="input" id="bairro">
+                </div>
+            </div>
+
+            <label>Complemento</label>
+            <input type="text" class="input" id="complemento" placeholder="Opcional">
+
+            <div class="row">
+                <div class="col">
+                    <label>Cidade</label>
+                    <input type="text" class="input" id="cidade">
+                </div>
+
+                <div class="col">
+                    <label>Estado</label>
+                    <input type="text" class="input" id="estado">
+                </div>
+            </div>
+
+            <div class="buttons">
+                <a href="/checkout.html">cancelar</a>
+                <button type="submit" class="btn-save">Atualizar</button>
+            </div>
+        `;
+
+    addressBox.appendChild(form);
+
+    document.getElementById('cep').value = endereco.cep;
+    document.getElementById('address').value = endereco.logradouro;
+    document.getElementById('numero').value = endereco.numero;
+    document.getElementById('bairro').value = endereco.bairro;
+    document.getElementById('complemento').value = endereco.complemento || '';
+    document.getElementById('cidade').value = endereco.cidade;
+    document.getElementById('estado').value = endereco.estado;
+
+    consultarCep();
+
+    form.addEventListener('submit', (e) => atualizarEndereco(e, id));
+}
+
+async function atualizarEndereco(e, id) {
+    e.preventDefault();
+
+    const dados = {
+        id_endereco: id, // Alguns backends exigem o ID no corpo também
+        cep: document.getElementById('cep').value,
+        logradouro: document.getElementById('address').value,
+        numero: document.getElementById('numero').value,
+        bairro: document.getElementById('bairro').value,
+        cidade: document.getElementById('cidade').value,
+        estado: document.getElementById('estado').value,
+        complemento: document.getElementById('complemento').value
+    }
+
+    try {
+        const response = await fetch(`/endereco/${id}`, { // URL com ID
+            method: 'PUT', // Método HTTP para atualização
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dados)
+        });
+
+        if (response.ok) {
+            alert('Endereço atualizado com sucesso!');
+            carregarEnderecos(); // Recarrega a lista
+        } else {
+            alert('Erro ao atualizar endereço.');
+        }
+    } catch (error) {
+        console.error(error);
+        alert('Erro de conexão ao tentar atualizar.');
     }
 }
 

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfumaria M&F</title>
+    <link rel="stylesheet" href="./css/checkout.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-logo">M&F</a>
+            <div class="nav-search">
+                <label for="">
+                    <span class="material-icons-outlined">search</span>
+                </label>
+                <input type="text" id="searchInput" placeholder="Buscar produtos">
+            </div>
+            <div class="nav-icons">
+                <a href="#"><span class="material-icons-outlined">favorite_border</span></a>
+                <div class="user-menu">
+                    <span class="material-icons-outlined" id="account-icon" role="button"
+                        tabindex="0">account_circle</span>
+                    <div class="dropdown-content">
+                        <a href="#" id="meu-perfil">Meu Perfil</a>
+                        <a href="#" id="logout-btn">Logout</a>
+                    </div>
+                </div>
+                <a href="#"><span class="material-icons-outlined" id="open-cart">shopping_cart</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        <a href="./index.html"><span class="material-icons-outlined">navigate_before</span>Home<a></a>
+    </div>
+
+    <div class="container">
+        <div class="left-column">
+
+            <section class="card">
+                <h3 id="address-title">entrega</h3>
+                <div id="address-box">
+
+                </div>
+                <div id="add-address">
+                    <span class="material-icons-outlined">add</span>
+                    <p>adicionar endereço</p>
+                </div>
+            </section>
+
+            <section class="card">
+                <h3>pagamento</h3>
+                <div class="payment-options">
+
+                </div>
+            </section>
+        </div>
+
+        <aside class="right-column">
+
+            <div class="card">
+                <h3>minha compra</h3>
+
+                <div  class="product-summary">
+                    
+                </div>
+
+                <!--
+
+                    <div class="product-summary">
+                    <p style="font-size: 0.8rem; color: #777; margin-bottom: 10px;">1 produto</p>
+                    <div class="prod-img"></div>
+                    <div class="prod-details">
+                        <h4>Una Infinito 75 ml</h4>
+                        <div class="prod-prices">
+                            <span class="old">de R$ 319,00</span>
+                            <span class="new">por R$ 191,40</span>
+                        </div>
+                        <small>1 unidade</small>
+                    </div>
+                </div>
+
+                
+                <div class="price-row discount">
+                    <span>entrega (normal)</span>
+                    <span>R$ 12,99 grátis</span>
+                </div>
+
+                
+
+                -->
+
+
+                <div class="price-row total">
+                    <strong>total: R$ 0,00</strong>
+                </div>
+                <button class="btn-finish">concluir a compra</button>
+                <a href="./index.html" class="continue-link">continuar comprando</a>
+            </div>
+        </aside>
+    </div>
+
+    <script src="./js/checkout.js"></script>
+</body>
+
+</html>

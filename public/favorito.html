@@ -1,11 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Perfumaria M&F</title>
+    <link rel="stylesheet" href="./css/favorito.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 </head>
+
 <body>
-    <h1>Favoritos</h1>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="./index.html" class="nav-logo">M&F</a>
+            <div class="nav-search">
+                <label for="">
+                    <span class="material-icons-outlined">search</span>
+                </label>
+                <input type="text" id="searchInput" placeholder="Buscar produtos">
+            </div>
+            <div class="nav-icons">
+                <a href="#"><span class="material-icons-outlined">favorite_border</span></a>
+                <div class="user-menu">
+                    <span class="material-icons-outlined" id="account-icon" role="button"
+                        tabindex="0">account_circle</span>
+                    <div class="dropdown-content">
+                        <a href="#" id="meu-perfil">Meu Perfil</a>
+                        <a href="#" id="logout-btn">Logout</a>
+                    </div>
+                </div>
+                <a href="#"><span class="material-icons-outlined" id="open-cart">shopping_cart</span></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <div class="sidebar">
+            <ul>
+                <li><a href="./perfil.html">conta</a></li>
+                <li><a href="./favorito.html">favoritos</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <!-- Formulario com dados do usuario inseridos dinamicamente -->
+        </div>
+
+    </div>
+    
+    <script src="./js/favorito.js"></script>
 </body>
 </html>

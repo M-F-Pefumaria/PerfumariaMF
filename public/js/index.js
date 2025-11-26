@@ -140,6 +140,4 @@ if (accountIcon && userDropdown && userMenu) {
     document.getElementById('meu-perfil').addEventListener('click', () => {
         window.location.href = '/perfil.html';
     })
-
-
 }

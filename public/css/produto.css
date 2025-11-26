@@ -20,6 +20,11 @@ body {
     color: var(--text-primary);
 }
 
+a {
+    text-decoration: none;
+    color: var(--texto-escuro);
+}
+
 /* Navbar */
 
 .navbar {

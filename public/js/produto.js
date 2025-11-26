@@ -125,11 +125,10 @@ function atualizarCarrinho() {
     carrinho.forEach((item, index) => {
         const subtotal = item.preco * item.quantidade;
         total += subtotal;
-        const imgSrc = item.imagem_url
 
         containerItems.innerHTML += `
             <div class="cart-item">
-                <img src="${imgSrc}" width="50">
+                <img src="${item.imagem_url}">
                 <div class="cart-item-info">
                     <h4>${item.nome}</h4>
                     <p>Preço: R$ ${item.preco.toFixed(2).replace('.', ',')}</p>
@@ -143,27 +142,7 @@ function atualizarCarrinho() {
         `;
     });
 
-    if (totalSpan) {
-        totalSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
-    }
-}
-
-window.alterarQtd = function (index, delta) {
-    let carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-    const produto = carrinho[index];
-
-    const novaQtd = produto.quantidade + delta;
-
-    if (novaQtd > produto.qtd_estoque) return;
-
-    if (novaQtd <= 0) {
-        carrinho.splice(index, 1);
-    } else {
-        produto.quantidade = novaQtd;
-    }
-
-    localStorage.setItem('carrinho', JSON.stringify(carrinho));
-    atualizarCarrinho();
+    totalSpan.textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
 }
 
 window.removerItem = function (index) {
@@ -184,7 +163,6 @@ if (btnCheckout) {
         window.location.href = '/checkout.html';
     });
 }
-
 
 document.getElementById("open-cart").addEventListener('click', () => {
     document.getElementById("cart-sidebar").classList.toggle('open-sidebar');

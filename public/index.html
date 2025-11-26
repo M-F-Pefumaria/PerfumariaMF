@@ -11,14 +11,16 @@
 
 <body>
 
-    <header>
+    <nav class="navbar">
         <div class="nav-container">
-            <div>M&F</div>
+            <h1 class="nav-logo">M&F</h1>
             <div class="nav-search">
-                <label><span class="material-icons-outlined">search</span></label>
+                <label for="">
+                    <span class="material-icons-outlined">search</span>
+                </label>
                 <input type="text" id="searchInput" placeholder="Buscar produtos">
             </div>
-            <nav class="nav-icons">
+            <div class="nav-icons">
                 <a href="#"><span class="material-icons-outlined">favorite_border</span></a>
                 <div class="user-menu">
                     <span class="material-icons-outlined" id="account-icon" role="button"
@@ -28,30 +30,28 @@
                         <a href="#" id="logout-btn">Logout</a>
                     </div>
                 </div>
-                <a href=""><span class="material-icons-outlined" id="open-cart">shopping_cart</span></a>
-            </nav>
+                <a href="#"><span class="material-icons-outlined" id="open-cart">shopping_cart</span></a>
+            </div>
         </div>
-    </header>
-
-    <div class="cart-overlay" id="cart-overlay"></div>
+    </nav>
 
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
             <h2>Carrinho</h2>
-            <span class="material-icons-outlined close-btn">close</span>
+            <span class="material-icons-outlined" id="close-btn">close</span>
         </div>
-
         <div class="cart-items-container" id="cart-items">
+            <!-- Produtos adicionados dinamicamente -->
         </div>
-
         <div class="cart-footer">
-            <div class="summary-row total">
-                <p>Total</p>
+            <div class="cart-total">
+                <strong>Total:</strong>
                 <span id="cart-total-final">R$ 0,00</span>
             </div>
-            <button class="btn-checkout">Finalizar Compra</button>
+            <button class="btn-checkout" >Finalizar Compra</button>
         </div>
     </div>
+
 
     <section>
         <div class="filter-tabs">

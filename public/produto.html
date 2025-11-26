@@ -26,8 +26,6 @@
         </div>
     </nav>
 
-    <div class="cart-overlay" id="cart-overlay"></div>
-
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
             <h2>Carrinho</h2>
@@ -37,8 +35,8 @@
             <!-- Produtos adicionados dinamicamente -->
         </div>
         <div class="cart-footer">
-            <div class="summary-row total">
-                <p>Total</p>
+            <div class="cart-total">
+                <strong>Total:</strong>
                 <span id="cart-total-final">R$ 0,00</span>
             </div>
             <button class="btn-checkout" >Finalizar Compra</button>
@@ -47,27 +45,13 @@
     
 
     <main>
-        <div>
+        <div class="btn-voltar">
             <a href="./index.html"><span class="material-icons-outlined">navigate_before</span>Home<a>
         </div>
         
         <div id="product-container">
-
+            <!-- Produtos adicionados dinamicamente -->
         </div>
-        
-        <section class="review-section">
-            <div>
-                <div class="pontuacao">
-                    <!-- Pontuação adicionada dinamicamente -->
-                </div>
-                <div class="estrelas">
-                    
-                </div>
-            </div>
-            <div class="comentarios">
-                <!-- Comentários adicionados dinamicamente -->
-            </div>
-        </section>
     </main>
 
     <script src="./js/produto.js"></script>

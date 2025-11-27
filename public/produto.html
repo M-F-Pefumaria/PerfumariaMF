@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Perfumaria M&F</title>
     <link rel="stylesheet" href="./css/produto.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
 </head>
@@ -11,7 +11,7 @@
 
     <nav class="navbar">
         <div class="nav-container">
-            <h1 class="nav-logo">M&F</h1>
+            <a href="./index.html" class="nav-logo">M&F</a>
             <div class="nav-search">
                 <label for="">
                     <span class="material-icons-outlined">search</span>
@@ -35,36 +35,23 @@
             <!-- Produtos adicionados dinamicamente -->
         </div>
         <div class="cart-footer">
-            <div class="summary-row total">
-                <p>Total</p>
+            <div class="cart-total">
+                <strong>Total:</strong>
                 <span id="cart-total-final">R$ 0,00</span>
             </div>
             <button class="btn-checkout" >Finalizar Compra</button>
         </div>
     </div>
+    
 
     <main>
-        <div>
+        <div class="btn-voltar">
             <a href="./index.html"><span class="material-icons-outlined">navigate_before</span>Home<a>
         </div>
         
         <div id="product-container">
-
+            <!-- Produtos adicionados dinamicamente -->
         </div>
-        
-        <section class="review-section">
-            <div>
-                <div class="pontuacao">
-                    <!-- Pontuação adicionada dinamicamente -->
-                </div>
-                <div class="estrelas">
-                    
-                </div>
-            </div>
-            <div class="comentarios">
-                <!-- Comentários adicionados dinamicamente -->
-            </div>
-        </section>
     </main>
 
     <script src="./js/produto.js"></script>

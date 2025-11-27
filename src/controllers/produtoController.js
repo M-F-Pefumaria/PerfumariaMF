@@ -1,6 +1,6 @@
 const Produto = require('../models/Produto');
 
-class ProdutoController {
+class produtoController {
 
     // Listagem de Produtos
     async index(req, res) {
@@ -13,7 +13,7 @@ class ProdutoController {
         const id = parseInt(req.params.id);
         const produto = await Produto.findById(id);
 
-        if(!produto) {
+        if (!produto) {
             res.status(404).json({ message: 'Produto não encontrado' });
         }
 
@@ -25,7 +25,7 @@ class ProdutoController {
 
         let imagePath = '';
 
-        if(req.file) {
+        if (req.file) {
             imagePath = `uploads/${req.file.filename}`;
         }
 
@@ -42,19 +42,23 @@ class ProdutoController {
     // Atualiza um Produto
     async update(req, res) {
         const id = parseInt(req.params.id);
-        const dadosAtualizados = { ...req.body};
 
-        if(req.file) {
+        const produtoAntigo = await Produto.findById(id);
+
+        const dadosAtualizados = { ...req.body };
+
+        if (req.file) {
             dadosAtualizados.imagem_url = `uploads/${req.file.filename}`;
+        } else {
+            dadosAtualizados.imagem_url = produtoAntigo.imagem_url;
         }
 
-        const produtoAtualizado = await Produto.update(id, dadosAtualizados);
+        const linhasAfetadas = await Produto.update(id, dadosAtualizados);
 
-        if(!produtoAtualizado) {
-            return res.status(404).json({ message: 'Produto não encontrado' });
+        if (linhasAfetadas === 0) {
         }
 
-        return res.status(200).json({message: 'Produto atualizado com sucesso'});
+        return res.status(200).json({ message: 'Produto atualizado com sucesso' });
     }
 
     // Exclui um Produto
@@ -62,13 +66,13 @@ class ProdutoController {
         const id = parseInt(req.params.id);
         const produtoDeletado = await Produto.destroy(id);
 
-        if(!produtoDeletado) {
+        if (!produtoDeletado) {
             return res.status(404).json({ message: 'Produto não encontrado' });
         }
 
-        return res.status(200).json({message: 'Produto excluido com sucesso'});
+        return res.status(200).json({ message: 'Produto excluido com sucesso' });
 
     }
 }
 
-module.exports = new ProdutoController();
+module.exports = new produtoController();

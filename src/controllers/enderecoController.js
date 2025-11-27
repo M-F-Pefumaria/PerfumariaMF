@@ -4,9 +4,22 @@ class enderecoController {
 
     async index(req, res) {
         const id_usuario = req.session.usuarioLogado.id;
-        const enderecos = await Endereco.findById(id_usuario);
+        const enderecos = await Endereco.findAll(id_usuario);
 
         res.status(200).json(enderecos);
+    }
+
+    async show(req, res) {
+        const id_usuario = req.session.usuarioLogado.id;
+        const id_endereco = req.params.id;
+
+        const endereco = await Endereco.findById(id_endereco, id_usuario);
+
+        if (!endereco) {
+            return res.status(404).json({ error: "Endereço não encontrado" });
+        }
+
+        res.status(200).json(endereco);
     }
 
     async create(req, res) {
@@ -19,7 +32,6 @@ class enderecoController {
     }
 
     async update(req, res) {
-
         const id_usuario = req.session.usuarioLogado.id;
         const id_endereco = req.params.id;
         const dadosAtualizados = { ...req.body };

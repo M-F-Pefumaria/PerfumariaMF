@@ -2,10 +2,23 @@ const btnAddEndereco = document.getElementById("add-address");
 const addressBox = document.getElementById("address-box");
 const addressTitle = document.getElementById("address-title");
 
+let idEnderecoSelecionado = null;
+
+const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
 document.addEventListener('DOMContentLoaded', async () => {
-    carregarEnderecos();
+
+    if (carrinho.length === 0) {
+        window.location.href = 'index.html';
+        return
+    }
+
+    await carregarEnderecos();
+
+    carregarResumo(carrinho);
 
     btnAddEndereco.addEventListener('click', cadastrarEndereco);
+    document.getElementById("btn-finish").addEventListener('click', finalizarCompra);
 });
 
 async function carregarEnderecos() {
@@ -20,7 +33,7 @@ async function carregarEnderecos() {
     }
 
     addressBox.innerHTML = '';
-    addressTitle.innerHTML = 'entrega';
+    addressTitle.innerHTML = 'Endereço';
 
     if (enderecos.length === 0) {
         btnAddEndereco.style.display = "block";
@@ -28,9 +41,19 @@ async function carregarEnderecos() {
 
         btnAddEndereco.style.display = "none";
 
-        enderecos.forEach(end => {
+        enderecos.forEach((end, index) => {
             const card = document.createElement('div');
             card.className = "card-endereco";
+
+            if (index === 0) {
+                card.classList.add('selecionado');
+                idEnderecoSelecionado = end.id_endereco;
+            }
+
+            card.onclick = function() {
+                card.classList.add('selecionado');
+                idEnderecoSelecionado = end.id_endereco;
+            };
 
             card.innerHTML = `
                 <div>
@@ -51,7 +74,95 @@ async function carregarEnderecos() {
     }
 }
 
-async function cadastrarEndereco() {
+function carregarResumo(carrinho) {
+    const container = document.getElementById('itens-carrinho');
+    const totalSpan = document.getElementById('valor-total');
+    let totalProdutos = 0;
+
+    container.innerHTML = ''
+
+    carrinho.forEach((item, index)=> {
+        const subtotal = item.preco * item.quantidade;
+        totalProdutos += subtotal;
+
+        container.innerHTML += `
+            <div class="cart-item">
+                <img src="${item.imagem_url}"> <div class="cart-item-info">
+                    <h4>${item.nome}</h4>
+                    <p>Preço: R$ ${item.preco.toFixed(2).replace('.', ',')}</p>
+                    <p>Quantidade: ${item.quantidade}</p>
+                </div>
+                <button onclick="removerItem(${index})" class="btn-remove-item">
+                    <span class="material-icons-outlined">delete_outline</span>
+                </button>
+            </div>
+        `;
+    });
+
+    document.getElementById('valor-total').innerText = `R$ ${totalProdutos.toFixed(2).replace('.', ',')}`;
+}
+
+window.removerItem = function(index) {
+    carrinho.splice(index, 1); // Remove do array
+    localStorage.setItem('carrinho', JSON.stringify(carrinho)); // Salva
+    carregarResumo(); // Atualiza a tela
+}
+
+
+async function finalizarCompra() {
+
+    if (!idEnderecoSelecionado) {
+        alert("Por favor, selecione um endereço de entrega.");
+        return;
+    }
+
+    const radios = document.getElementsByName('metodo_pagamento');
+    let formaPagamento = null;
+    for (let i = 0; i < radios.length; i++) {
+        if (radios[i].checked) {
+            formaPagamento = radios[i].value;
+            break;
+        }
+    }
+
+    if (!formaPagamento) {
+        alert("Por favor, escolha uma forma de pagamento.");
+        return;
+    }
+
+    const payload = {
+        id_endereco: idEnderecoSelecionado,
+        forma_pagamento: formaPagamento,
+        itensCarrinho: carrinho.map(item => ({
+            id_produto: item.id_produto,
+            quantidade: item.quantidade
+        }))
+    };
+
+    try {
+        const response = await fetch('/pedido/finalizar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+
+        const resultado = await response.json();
+
+        if (response.ok) {
+            localStorage.removeItem('carrinho');
+            window.location.href = '/index.html';
+        } else {
+            alert("Erro: " + resultado.message);
+        }
+
+    } catch (error) {
+        console.error(error);
+        alert("Erro de conexão ao finalizar pedido.");
+    }
+
+}
+
+function cadastrarEndereco() {
 
     addressBox.innerHTML = '';
     addressTitle.textContent = 'adicionar endereço';

@@ -1,6 +1,7 @@
 const btnAddEndereco = document.getElementById("add-address");
 const addressBox = document.getElementById("address-box");
 const addressTitle = document.getElementById("address-title");
+const btnFinalizar = document.getElementById("btn-finish")
 
 let idEnderecoSelecionado = null;
 
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     carregarResumo(carrinho);
 
     btnAddEndereco.addEventListener('click', cadastrarEndereco);
-    document.getElementById("btn-finish").addEventListener('click', finalizarCompra);
+    btnFinalizar.addEventListener('click', finalizarCompra);
 });
 
 async function carregarEnderecos() {
@@ -50,7 +51,7 @@ async function carregarEnderecos() {
                 idEnderecoSelecionado = end.id_endereco;
             }
 
-            card.onclick = function() {
+            card.onclick = function () {
                 card.classList.add('selecionado');
                 idEnderecoSelecionado = end.id_endereco;
             };
@@ -81,7 +82,7 @@ function carregarResumo(carrinho) {
 
     container.innerHTML = ''
 
-    carrinho.forEach((item, index)=> {
+    carrinho.forEach((item, index) => {
         const subtotal = item.preco * item.quantidade;
         totalProdutos += subtotal;
 
@@ -103,9 +104,20 @@ function carregarResumo(carrinho) {
 }
 
 window.removerItem = function(index) {
-    carrinho.splice(index, 1); // Remove do array
-    localStorage.setItem('carrinho', JSON.stringify(carrinho)); // Salva
-    carregarResumo(); // Atualiza a tela
+
+    let carrinhoTemp = JSON.parse(localStorage.getItem('carrinho')) || [];
+
+    carrinhoTemp.splice(index, 1);
+    
+    localStorage.setItem('carrinho', JSON.stringify(carrinhoTemp));
+    
+    carregarResumo(carrinhoTemp);
+
+    if (carrinhoTemp.length === 0) {
+        btnFinalizar.disabled = true;
+    } else {
+        btnFinish.disabled = false;
+    }
 }
 
 

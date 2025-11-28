@@ -351,6 +351,107 @@ function editarProduto(produtoId) {
         });
 }
 
+// PEDIDOS
+
+const btnPedidos = document.getElementById('btn-pedidos');
+
+if (btnPedidos) {
+    btnPedidos.addEventListener('click', (e) => {
+        e.preventDefault();
+        carregarPedidos();
+    });
+}
+
+function carregarPedidos() {
+
+    headerTitle.textContent = 'Gerenciar Pedidos';
+    mainContainer.innerHTML = '';
+
+    fetch('/pedido')
+        .then(res => res.json())
+        .then(data => {
+
+            let tabelaHTML = `
+            <div class="header-produtos">
+                <h2>Lista de Pedidos</h2>
+                </div>
+        
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Email</th>
+                        <th>Data</th>
+                        <th>Entrega</th>
+                        <th>Valor Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+            `;
+
+            data.forEach(pedido => {
+
+                const dataFormatada = new Date(pedido.data_pedido).toLocaleDateString('pt-BR');
+
+
+                const statusOpcoes = ['PENDENTE', 'PROCESSANDO', 'ENVIADO', 'ENTREGUE', 'CANCELADO'];
+
+                let selectStatus = `<select onchange="atualizarStatusPedido(${pedido.id_pedido}, this.value)"`;
+
+                statusOpcoes.forEach(status => {
+                    const selected = pedido.status === status ? 'selected' : '';
+                    selectStatus += `<option value="${status}" ${selected}>${status}</option>`;
+                });
+                selectStatus += `</select>`;
+
+                tabelaHTML += `
+                        <tr>
+                            <td>#${pedido.id_pedido}</td>
+                            <td>${pedido.nome}</td>
+                            <td>${pedido.email}</td>
+                            <td>${dataFormatada}</td>
+                            <td>${pedido.tipo_entrega}</td>
+                            <td>R$ ${parseFloat(pedido.valor_total).toFixed(2)}</td>
+                            <td>${selectStatus}</td>
+                        </tr>
+                    `;
+            });
+
+
+            tabelaHTML += `
+                </tbody>
+            </table>
+            `;
+
+            mainContainer.innerHTML = tabelaHTML;
+        })
+}
+
+function atualizarStatusPedido(idPedido, novoStatus) {
+
+    fetch(`/pedido/${idPedido}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ status: novoStatus })
+    })
+        .then(res => {
+            if (res.ok) {
+                alert(`Status do pedido #${idPedido} atualizado para ${novoStatus}`);
+            } else {
+                alert('Erro ao atualizar o status. Tente novamente.');
+                carregarPedidos();
+            }
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro de conexão.');
+        });
+}
+
 // Função para deletar produto
 function deletarProduto(produtoId) {
     if (confirm('Tem certeza que deseja excluir este produto?')) {
